@@ -13,7 +13,7 @@ const Posts = () => {
 
   // fetch posts on page load
   useEffect(() => {
-    GetPosts('http://localhost:5000/auth/posts/', user.token, 'GET')
+    GetPosts(`${process.env.REACT_APP_API_URL}/auth/posts/`, user.token, 'GET')
       .then(({data, response}) => {
         if(response.ok) {
           setPosts(data);

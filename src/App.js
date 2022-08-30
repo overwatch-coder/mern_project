@@ -12,7 +12,6 @@ import HomeSinglePost from "./components/Home/HomeSinglePost";
 import Loader from "./components/Loader/Loader";
 import HashLoader from 'react-spinners/HashLoader';
 
-
 const App = () => {
   const { isLoggedIn, loading } = useContext(AuthContext);
   

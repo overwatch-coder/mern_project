@@ -41,7 +41,7 @@ const EditPost = () => {
 
     useEffect(() => {
         // fetch post into existing form
-        GetPosts(`http://localhost:5000/auth/posts/${id}`, user.token, 'GET')
+        GetPosts(`${process.env.REACT_APP_API_URL}/auth/posts/${id}`, user.token, 'GET')
        .then(({data, response}) => {
             if(!response.ok){
                 return setError(data.message);
@@ -84,7 +84,7 @@ const EditPost = () => {
             };
 
             // send post data to server and get response
-            CreatePost(`http://localhost:5000/auth/posts/${id}`, user.token, 'PUT', postData)
+            CreatePost(`${process.env.REACT_APP_API_URL}/auth/posts/${id}`, user.token, 'PUT', postData)
                 .then(({data, response}) => {
                     if(!response.ok) {
                         return setError(data.message); 

@@ -63,7 +63,7 @@ const CreatePost = () => {
             }
             
             // send post data to server and get response
-            CreatePost('http://localhost:5000/auth/posts/', user.token, 'POST', formData)
+            CreatePost(`${process.env.REACT_APP_API_URL}/auth/posts/`, user.token, 'POST', formData)
                 .then(({data, response}) => {
                     if(!response.ok) {
                         return setError(data.message); 
