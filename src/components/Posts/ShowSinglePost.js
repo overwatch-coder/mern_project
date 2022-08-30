@@ -13,7 +13,7 @@ const ShowSinglePost = () => {
     const [post, setPost] = useState({});
 
     useEffect(() => {
-       GetPosts(`http://localhost:5000/auth/posts/${id}`, user.token, 'GET')
+       GetPosts(`${process.env.REACT_APP_API_URL}/auth/posts/${id}`, user.token, 'GET')
        .then(({data, response}) => {
             if(!response.ok){
                 return setError(data.message);
@@ -27,7 +27,7 @@ const ShowSinglePost = () => {
     }, [GetPosts, id, post, setError, user.token])
 
     const handleDelete = async () => {
-        GetPosts(`http://localhost:5000/auth/posts/${id}`, user.token, 'DELETE')
+        GetPosts(`${process.env.REACT_APP_API_URL}/auth/posts/${id}`, user.token, 'DELETE')
        .then(({data, response}) => {
             if(!response.ok){
                 return setError(data.message);

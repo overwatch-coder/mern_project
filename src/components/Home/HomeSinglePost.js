@@ -10,7 +10,7 @@ const HomeSinglePost = () => {
     const { isLoggedIn, user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts/${id}`)
+        fetch(`${process.env.REACT_APP_API_URL}/posts/${id}`)
         .then(res => res.json())
         .then(data => {
             setSinglePost(data);
