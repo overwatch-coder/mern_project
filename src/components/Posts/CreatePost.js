@@ -153,7 +153,7 @@ const CreatePost = () => {
                     <div className='flex flex-col gap-y-3 w-full py-2 px-3 focus:outline-none rounded border-[1px] border-blue-500 focus:border-blue-600'>
                         <label className='font-[600]'>Description</label>
                         <Editor
-                            apiKey='uin8wn8ozvczow471z5thel1xfd0ofd1w5jlgc33z5v18640'
+                            apiKey={process.env.REACT_APP_TINY_MCE_API_KEY}
                             cloudChannel='6-dev'
                             init={editorInit}
                             onInit={(evt, editor) => editorRef.current = editor}
