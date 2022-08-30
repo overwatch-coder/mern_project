@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
-        }, 3000);
+        }, 2000);
     }, [setLoading]);
 
     // function to delete a post

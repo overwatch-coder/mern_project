@@ -45,7 +45,7 @@ const SinglePost = ({post}) => {
                 <div className='border-b-2 w-full md:w-96 border-cyan-600'></div>
             </h1>
             <h3 className='leading-loose text-lg'>
-                {post.description}
+                <span dangerouslySetInnerHTML={{ __html: post.description}} />
             </h3>
         </div>
     </div>

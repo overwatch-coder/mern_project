@@ -7,8 +7,8 @@ const ShowPost = ({ post }) => {
     
     let excerpt = '';
     
-    if(post.description.length > 50) {
-        excerpt = post.description.substring(0, 50) + '...';
+    if(post.description.length > 80) {
+        excerpt = post.description.substring(0, 80) + '...';
     }else {
         excerpt = post.description;
     }
@@ -43,7 +43,9 @@ const ShowPost = ({ post }) => {
            {
             path !== '/' && 
             <>
-                <p className='text-gray-600'>{excerpt}</p>
+                <div className='text-gray-600'>
+                    <p dangerouslySetInnerHTML={{ __html: excerpt }} />
+                </div>
                 <Link to={post._id} className="my-2">
                     <button className='bg-green-600 px-4 py-2 rounded text-white hover:bg-green-600/80'>
                         Read more

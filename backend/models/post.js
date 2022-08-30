@@ -18,8 +18,7 @@ const PostSchema = new Schema({
         require: [true, 'Author is require']
     },
     image: {
-        data: Buffer,
-        contentType: String
+        type: String
     }
 }, {
     timestamps: true

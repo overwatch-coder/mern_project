@@ -3,16 +3,35 @@ import Layout from '../../pages/Layout';
 import { AuthContext } from '../../context/authContext';
 import { FetchPost } from '../Fetch/FetchPost';
 import { useNavigate } from 'react-router-dom';
+import FileBase64 from 'react-file-base64';
+import { Editor } from '@tinymce/tinymce-react';
+
 
 const CreatePost = () => {
-    document.title = 'Create Post - New'
-    const uploadedImage = useRef();
+    document.title = 'Create Post - New';
+    const editorRef = useRef(null);
+    const [editor, setEditor] = useState('');
+    const editorInit = {
+        height: 400,
+        menubar: true,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'code', 'help',
+        ],
+        toolbar: 'undo redo | blocks | ' + 
+            'bold italic forecolor fontsize | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+    }
 
     const navigate = useNavigate();
     const { CreatePost } = FetchPost();
     const { user, posts, error, setPosts, setError } = useContext(AuthContext);
+
     const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(editor);
     const [author, setAuthor] = useState('');
     const [image, setImage] = useState('');
     const [titleLength, setTitleLength] = useState(0);
@@ -38,9 +57,9 @@ const CreatePost = () => {
             
             const formData = {
                 title, 
-                description,
+                description: editor,
                 author: userAuthor,
-                image: image
+                image
             }
             
             // send post data to server and get response
@@ -64,7 +83,8 @@ const CreatePost = () => {
                     setDescription('');
                     setAuthor('');
                     setError('');
-                    uploadedImage.current.value = '';
+                    setImage('');
+                    setEditor('');
                 })
                 .catch(err => {
                     setError(err.message);
@@ -117,28 +137,30 @@ const CreatePost = () => {
                         />
                     </div>
 
-                    <div className='flex flex-col gap-y-3 mb-3'>
+                    {<div className='flex flex-col gap-y-3 mb-3 w-full py-2 px-3 focus:outline-none rounded border-[1px] border-blue-500 focus:border-blue-600'>
                         <label className='font-[600]'>Add an image (Optional) </label>
-                        <input 
-                            type="file"
-                            ref={uploadedImage} 
+                        <FileBase64 
+                            multiple={false}
+                            onDone = {({base64}) => setImage(base64)}
                             className='w-full py-2 px-3 focus:outline-none rounded border-[1px] border-blue-500 focus:border-blue-600'
-                            name='blogImage'
-                            accept='image/*'
-                            onChange={(e) => setImage(e.target.files[0])}
                         />
-                    </div>
+                        {image && <div className='my-3'>
+                            <p>Preview Image</p>
+                            {<img src={image} alt="uploaded file" className='w-40 object-contain' />}
+                        </div>}
+                    </div>}
 
-                    <div className='flex flex-col gap-y-3'>
+                    <div className='flex flex-col gap-y-3 w-full py-2 px-3 focus:outline-none rounded border-[1px] border-blue-500 focus:border-blue-600'>
                         <label className='font-[600]'>Description</label>
-                        <textarea 
-                            type="text" 
-                            name='description'
-                            placeholder='Enter description'
-                            className='h-[200px] w-full py-2 px-3 focus:outline-none rounded border-[1px] border-blue-500 focus:border-blue-600'
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        ></textarea>
+                        <Editor
+                            apiKey='uin8wn8ozvczow471z5thel1xfd0ofd1w5jlgc33z5v18640'
+                            cloudChannel='6-dev'
+                            init={editorInit}
+                            onInit={(evt, editor) => editorRef.current = editor}
+                            initialValue="<p>Blog description goes here</p>"
+                            onEditorChange={(e) => {setEditor(e); setDescription(e)}}
+                        />
+
                         <p className='text-right font-[600]'>
                             {description.length === 0 ? 
                                 <span className='text-red-600'> 0 word </span> : 

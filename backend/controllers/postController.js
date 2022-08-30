@@ -19,13 +19,13 @@ const getPosts = async (req, res) => {
 
 const createPost = async (req, res) => {
     const user_id = req.user_id;
-    const { title, description, author } = req.body;
-    // console.log({file: req.file});
+    const { title, description, author, image } = req.body;
     const post = new Post({
         title,
         description,
         author,
-        user_id
+        user_id,
+        image
     });
 
     try{
@@ -61,11 +61,11 @@ const getSinglePost = async (req, res) => {
 const updatePost = async (req, res) => {
     const { id } = req.params;
     const user_id = req.user_id;
-    const { title, description, author } = req.body;
+    const { title, description, author, image } = req.body;
     try {
         const post = await Post.findOneAndUpdate(
             {$and: [{_id: id}, {user_id}]}, 
-            {title, description, author}, 
+            {title, description, author, image}, 
             {new: true}
         );
 
