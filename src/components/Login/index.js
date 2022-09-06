@@ -135,7 +135,12 @@ const Login = () => {
         <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition'>Login</button>
 
         {/* A button to take a user to sign up page */}
-        <div className='my-2 text-end text-white'> 
+        <div className='my-2 text-white flex items-center gap-x-2 justify-between'> 
+            <div>
+              <p>Demo Account</p>
+              <p className='text-sm'>Email: userdemo@demo.com</p>
+              <p className='text-sm'>Password: Demo2022@@</p>
+            </div>
             <p className='flex items-center justify-end gap-x-2'>
               <span className='text-yellow-500'>Don't have an account?</span>
               <Link to='/signup' className='underline'>Sign up</Link>
