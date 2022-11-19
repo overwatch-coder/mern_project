@@ -1,5 +1,5 @@
 [submodule "backend"]
-	path = server
+	path = backend
 	url = https://github.com/overwatch-coder/mern_project.git
 [submodule "front-end"]
 	path = front-end
