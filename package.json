@@ -1,11 +1,11 @@
 {
   "name": "mern_project",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "author": "Overwatch Coder",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
